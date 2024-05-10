@@ -9,3 +9,7 @@ url = os.environ.get("CLOUDAMQP_URL", "amqp://guest:guest@localhost:5672/%2f")
 # Create a connection
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
+
+# Create a channel
+channel = connection.channel()
+print("[✅] Channel over a connection created")
