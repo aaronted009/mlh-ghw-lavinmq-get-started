@@ -13,3 +13,6 @@ connection = pika.BlockingConnection(params)
 # Create a channel
 channel = connection.channel()
 print("[✅] Channel over a connection created")
+
+# Declare a queue
+channel.queue_declare(queue='hello_world')
