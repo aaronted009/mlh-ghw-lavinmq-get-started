@@ -27,7 +27,7 @@ def send_to_queue(channel, routing_key, body):
 # Publish messages
 send_to_queue(channel=channel, routing_key="hello_world", body="Hello World")
 send_to_queue(channel=channel, routing_key="hello_world", body="Hello World")
-send_to_queue(channel=channel, routing_key="wrong_routing_key", body="Hello World")
+send_to_queue(channel=channel, routing_key="hello_world", body="Hello World")
 try:
     connection.close()
     print("[❎] Connection closed")
