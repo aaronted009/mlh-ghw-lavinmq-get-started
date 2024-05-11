@@ -1,3 +1,4 @@
+import sys
 import pika, os
 from dotenv import load_dotenv
 
@@ -29,3 +30,13 @@ channel.basic_consume(
     callback,
     auto_ack=True,
 )
+
+try:
+    print("\n[❎] Waiting for messages. To exit press CTRL+C \n")
+    channel.start_consuming()
+except Exception as e:
+    print(f"Error: #{e}")
+try:
+    sys.exit(0)
+except SystemExit:
+    os._exit(0)
