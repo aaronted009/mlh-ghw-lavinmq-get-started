@@ -15,10 +15,12 @@ connection = pika.BlockingConnection(params)
 channel = connection.channel()
 print("[✅] Channel over a connection created")
 
-# Declare a queue
+# Declare queues
 channel.queue_declare(
-    queue="hello_world"
+    queue="hr_queue"
 )  # This is idempotent : meaning we could be not declaring this, as a queue for the producer has already been created and queue can only be declared once (regardless of how many times we run the command, only one queue will be created). This is still declared as the consumer process can be started first.
+channel.queue_declare(queue="marketing_queue")
+channel.queue_declare(queue="support_queue")
 
 
 def callback(ch, method, properties, body):
@@ -26,7 +28,17 @@ def callback(ch, method, properties, body):
 
 
 channel.basic_consume(
-    "hello_world",
+    "hr_queue",
+    callback,
+    auto_ack=True,
+)
+channel.basic_consume(
+    "marketing_queue",
+    callback,
+    auto_ack=True,
+)
+channel.basic_consume(
+    "support_queue",
     callback,
     auto_ack=True,
 )
