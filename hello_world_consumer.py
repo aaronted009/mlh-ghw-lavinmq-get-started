@@ -39,7 +39,7 @@ channel.exchange_declare(exchange_name, "direct")
 
 # Declare queues
 channel.queue_declare(
-    queue=queue_name, durable=True
+    queue=queue_name
 )  # This is idempotent : meaning we could be not declaring this, as a queue for the producer has already been created and queue can only be declared once (regardless of how many times we run the command, only one queue will be created). This is still declared as the consumer process can be started first.
 
 

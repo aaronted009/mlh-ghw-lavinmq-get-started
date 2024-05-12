@@ -21,7 +21,7 @@ channel.exchange_declare(exchange_name, "direct")
 # Declaring queues
 queues = {"hr": "hr_queue", "support": "support_queue", "marketing": "marketing_queue"}
 for _, queue_name in queues.items():
-    channel.queue_declare(queue=queue_name, durable=True)
+    channel.queue_declare(queue=queue_name)
 
 
 # Bind the queues to the exchange
@@ -33,9 +33,7 @@ for binding_key, queue_name in queues.items():
 
 def send_to_queue(channel, routing_key, body):
     """Send message to queue."""
-    channel.basic_publish(
-        exchange=exchange_name, routing_key=routing_key, body=body
-    )
+    channel.basic_publish(exchange=exchange_name, routing_key=routing_key, body=body)
     print(f"[📥] Message sent to queue - msg:  #{body}")
 
 
