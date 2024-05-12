@@ -30,14 +30,14 @@ channel.queue_bind("support_queue", "slack_notifications", "support")
 
 def send_to_queue(channel, routing_key, body):
     """Send message to queue."""
-    channel.basic_publish(exchange="", routing_key=routing_key, body=body)
+    channel.basic_publish(exchange="slack_notifications", routing_key=routing_key, body=body)
     print(f"[📥] Message sent to queue - msg:  #{body}")
 
 
 # Publish messages
-send_to_queue(channel=channel, routing_key="hello_world", body="Hello World")
-send_to_queue(channel=channel, routing_key="hello_world", body="Hello World")
-send_to_queue(channel=channel, routing_key="hello_world", body="Hello World")
+send_to_queue(channel=channel, routing_key="hr", body="HR notification")
+send_to_queue(channel=channel, routing_key="marketing", body="Marketing notification")
+send_to_queue(channel=channel, routing_key="support", body="Support notification")
 try:
     connection.close()
     print("[❎] Connection closed")
