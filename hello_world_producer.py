@@ -22,6 +22,11 @@ channel.queue_declare(queue="hr_queue")
 channel.queue_declare(queue="marketing_queue")
 channel.queue_declare(queue="support_queue")
 
+# Bind the queues to the exchange
+channel.queue_bind("hr_queue", "test_exchange", "hr")
+channel.queue_bind("marketing_queue", "test_exchange", "marketing")
+channel.queue_bind("support_queue", "test_exchange", "support")
+
 
 def send_to_queue(channel, routing_key, body):
     """Send message to queue."""
