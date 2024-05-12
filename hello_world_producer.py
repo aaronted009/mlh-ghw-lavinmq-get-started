@@ -14,8 +14,13 @@ connection = pika.BlockingConnection(params)
 channel = connection.channel()
 print("[✅] Channel over a connection created")
 
-# Declare a queue
-channel.queue_declare(queue="hello_world")
+# Create a direct exchange called "slack_notifications"
+channel.exchange_declare("slack_notifications", "direct")
+
+# Declaring queues
+channel.queue_declare(queue="hr_queue")
+channel.queue_declare(queue="marketing_queue")
+channel.queue_declare(queue="support_queue")
 
 
 def send_to_queue(channel, routing_key, body):
